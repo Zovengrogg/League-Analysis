@@ -9,16 +9,14 @@ champRawData = json.loads(response.text)
 crd = champRawData['data']
 """print( crd ['Samira'])"""
 
-Samira_stats = crd['Samira']['stats']
-print(Samira_stats)
+# Samira_stats = crd['Samira']['stats']
 
 allchamps = []
-allchamps =[["Name","Champ Id", "Base AD"]]
+allchamps =[["Name", "Champ Id"]]
 for i in crd:
     name = crd[i]['id']
     champId = crd[i]['key']
-    ADbase = crd[i]['stats']['attackdamage']
-    row =[name, champId, ADbase]
+    row =[name, champId]
     allchamps.append(row)
 
 print(allchamps)

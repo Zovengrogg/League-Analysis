@@ -4,7 +4,7 @@ import pandas as pd
 import csv
 
 # global variables
-api_key = 'RGAPI-d6c5def9-86ea-4abd-a3fe-cbaa348749cc'
+api_key = 'RGAPI-dca7ad6f-ff5c-4ffb-8de7-01a601cb44a2'
 watcher = LolWatcher(api_key)
 my_region = 'na1'
 

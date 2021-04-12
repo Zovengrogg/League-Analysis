@@ -11,11 +11,15 @@ df1 = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/ne
 
 # Current List of Match ID's
 df2 = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/matchId')
+tail1 = df1.tail(10).reset_index()
+tail2 = df2.tail(10).reset_index()
 
-if not df1.tail(100000).equals(df2):
-    df2.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/matchId', mode='a', header=False, index=False)
-    df2.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/KDA_Match_ID', mode='a', header=False, index=False)
-    df2.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Win_Loss_Match_ID', mode='a', header=False, index=False)
+if not tail1['0'].equals(tail2['0']):
+    df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/matchId', mode='a', header=False, index=False)
+    df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/KDA_Match_ID', mode='a', header=False, index=False)
+    df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Win_Loss_Match_ID', mode='a', header=False, index=False)
+    df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Match_ID', mode='a', header=False, index=False)
+    df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/DLM_Match_ID', mode='a', header=False, index=False)
     print('it wrked')
 
 

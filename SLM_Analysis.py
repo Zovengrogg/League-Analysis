@@ -26,27 +26,31 @@ for key in static_champ_list['data']:
     row = static_champ_list['data'][key]
     champ_dict[row['key']] = row['id']
 
-df = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Data')
-
 
 def editData(bWinLoss, bChamp, rChamp):
     # Red champ changes
-    rData = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/%s' % rChamp)
-    rData.iloc[1, bChamp] = rData.iloc[0, bChamp] + 1
+    rData = pd.read_csv(
+        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % rChamp).set_index('Data')
+    rData.loc['Total Games', bChamp] = rData.loc['Total Games', bChamp] + 1
 
     # Blue champ changes
-    bData = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/%s' % bChamp)
-    bData.iloc[1, bChamp] = bData.iloc[0, bChamp] + 1
+    bData = pd.read_csv(
+        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % bChamp).set_index('Data')
+    bData.loc['Total Games', rChamp] = bData.loc['Total Games', rChamp] + 1
 
     if bWinLoss == 1:
-        bData.iloc[0, bChamp] = bData.iloc[0, bChamp] + 1
+        bData.loc['Wins', rChamp] = bData.loc['Wins', rChamp] + 1
     else:
-        rData.iloc[0, bChamp] = rData.iloc[0, bChamp] + 1
+        rData.loc['Wins', bChamp] = rData.loc['Wins', bChamp] + 1
 
-amount = 10
-tail = df.tail(amount)
+    rData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % rChamp)
+    bData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % bChamp)
 
-for i in range(amount):
-    editData(tail.iloc[i]['Blue W/L'], champ_dict[str(tail.iloc[i]['Blue side champ'])], champ_dict[str(tail.iloc[i]['Red side champ'])])
-    print(tail.iloc[i]['Blue side champ'])
 
+df = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Data')
+for i in range(len(df.index)):
+    editData(df.iloc[i]['Blue W/L'], champ_dict[str(df.iloc[i]['Blue side champ'])],
+             champ_dict[str(df.iloc[i]['Red side champ'])])
+
+df = df.iloc[0:0]
+df.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Data', index=False)

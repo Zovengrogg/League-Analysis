@@ -6,7 +6,7 @@ from riotwatcher import LolWatcher, ApiError
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 
-api_key = 'RGAPI-dca7ad6f-ff5c-4ffb-8de7-01a601cb44a2'
+api_key = 'RGAPI-f3ea0a25-881a-4e29-bd85-119e72098b0d'
 watcher = LolWatcher(api_key)
 my_region = 'na1'
 
@@ -27,15 +27,21 @@ for key in static_champ_list['data']:
     champ_dict[row['key']] = row['id']
 
 
-def editData(bWinLoss, bChamp, rChamp):
+def editData(bWinLoss, bChamp, rChamp, role):
+    if role == 'Middle':
+        lane = 'Mid'
+    if role == 'Jungle':
+        lane = 'Jungle'
+    if role == 'Top':
+        lane = 'Top'
     # Red champ changes
     rData = pd.read_csv(
-        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % rChamp).set_index('Data')
+        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Matchup %s/%s.CSV' % (lane, rChamp)).set_index('Data')
     rData.loc['Total Games', bChamp] = rData.loc['Total Games', bChamp] + 1
 
     # Blue champ changes
     bData = pd.read_csv(
-        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % bChamp).set_index('Data')
+        '/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Matchup %s/%s.CSV' % (lane, rChamp)).set_index('Data')
     bData.loc['Total Games', rChamp] = bData.loc['Total Games', rChamp] + 1
 
     if bWinLoss == 1:
@@ -43,14 +49,14 @@ def editData(bWinLoss, bChamp, rChamp):
     else:
         rData.loc['Wins', bChamp] = rData.loc['Wins', bChamp] + 1
 
-    rData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % rChamp)
-    bData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Champ Matchups/%s' % bChamp)
+    rData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Matchup %s/%s.CSV' % (lane, rChamp))
+    bData.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/Matchup %s/%s.CSV' % (lane, bChamp))
 
 
 df = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Data')
 for i in range(len(df.index)):
     editData(df.iloc[i]['Blue W/L'], champ_dict[str(df.iloc[i]['Blue side champ'])],
-             champ_dict[str(df.iloc[i]['Red side champ'])])
+             champ_dict[str(df.iloc[i]['Red side champ'])], df.iloc[i]['Role'])
 
 df = df.iloc[0:0]
 df.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Data', index=False)

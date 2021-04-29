@@ -6,7 +6,7 @@ import csv
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 
-api_key = 'RGAPI-b780b87f-3665-4a1e-a4c6-45ccd8a8663e'
+api_key = 'RGAPI-9792f1cb-b0cd-472a-ba24-6181e9bceed8'
 watcher = LolWatcher(api_key)
 my_region = 'na1'
 
@@ -31,7 +31,6 @@ for loop in range(10):
         match_detail = watcher.match.by_id(my_region, x)
         # checks to see if game is summnoner's rift. Can use same logic for ranked solo or ranked 5v5
         if match_detail['gameMode'] == 'CLASSIC':
-            i = 0
             middle = []
             for participant in match_detail['participants']:
                 # checks role of participant
@@ -40,7 +39,6 @@ for loop in range(10):
                 if role == 'SOLO' and lane == 'MIDDLE':
                     partId = participant['participantId']
                     middle.append(partId)
-                i += 1
             if not middle:
                 continue
             for y in middle:
@@ -73,7 +71,6 @@ for loop in range(10):
         match_detail = watcher.match.by_id(my_region, x)
         # checks to see if game is summnoner's rift. Can use same logic for ranked solo or ranked 5v5
         if match_detail['gameMode'] == 'CLASSIC':
-            i = 0
             top = []
             for participant in match_detail['participants']:
                 # checks role of participant
@@ -82,7 +79,6 @@ for loop in range(10):
                 if role == 'SOLO' and (lane == 'TOP' or 'BOTTOM'):
                     partId = participant['participantId']
                     top.append(partId)
-                i += 1
             if not top:
                 continue
             for y in top:

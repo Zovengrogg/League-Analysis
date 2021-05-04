@@ -3,6 +3,9 @@ import requests
 import json
 from riotwatcher import LolWatcher, ApiError
 
+# This program analyzes the data about matchups in mid, top and jungle and puts them into CSV's
+
+
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 

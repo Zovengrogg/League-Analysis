@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt, style, pyplot
 import numpy as np
 
+# This program uses logistical regresion to analyze the data gathered about ADC's
+
 data = pd.read_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/KDA_Data')
 data = data[["W/L", "Kills", "Deaths", "Assists", "Gold", "Time", "Vision Score"]]
 data['Kills'] = pd.to_numeric(data['Kills'], errors='coerce')

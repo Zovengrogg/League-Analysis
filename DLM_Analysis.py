@@ -3,6 +3,8 @@ import requests
 import json
 from riotwatcher import LolWatcher, ApiError
 
+# This program will analyze the duo lane matchus once there is sufficient accurate data
+
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 

@@ -3,6 +3,8 @@ from riotwatcher import LolWatcher, ApiError
 import pandas as pd
 import csv
 
+# This program gather data about the solo lane mathcups (top,mid and jungle) and puts it into a CSV
+
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 

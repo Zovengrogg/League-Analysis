@@ -3,6 +3,8 @@ from riotwatcher import LolWatcher, ApiError
 import pandas as pd
 import csv
 
+# This program gathers the data for duo matchups and puts them into a CSV
+
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 

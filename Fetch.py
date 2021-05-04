@@ -1,6 +1,8 @@
 import pandas as pd
 import requests
 
+# This program fetches match ID's from a website and puts those ID's into separate CSV's for other programs to use
+
 url = "https://canisback.com/matchId/matchlist_na1.json"
 s = requests.get(url).content
 # New match ID's
@@ -21,7 +23,4 @@ if not tail1['0'].equals(tail2['0']):
     df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/SLM_Match_ID', mode='a', header=False, index=False)
     df1.to_csv('/Users/mitchel/Documents/Projects/League-Analysis/CSV Data/DLM_Match_ID', mode='a', header=False, index=False)
     print('it wrked')
-
-
-
 
